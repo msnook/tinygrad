@@ -9,7 +9,6 @@ env:
   APPSURIFY_API_KEY: ${{ secrets.APPSURIFY_API_KEY }}
 
 jobs:
-  # OMG THIS TEST IS DISABLED, PLZ MAKE TINYGRAD TINY AGAIN
   lines:
     name: Less than 1000 lines
     runs-on: ubuntu-latest
