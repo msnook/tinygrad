@@ -35,11 +35,11 @@ class TestLLVM(unittest.TestCase):
     print(ret.toCPU())
 
   def test_add_sum_add(self):
-    a = LLVMBuffer.fromCPU(np.ones((3,3)))
-    b = LLVMBuffer.fromCPU(np.ones((2,2)))
+    a = LLVMBuffer.fromCPU(np.ones((4,4)))
+    b = LLVMBuffer.fromCPU(np.ones((4,4)))
     c = LLVMBuffer.fromCPU(np.ones((1,1)))
     ast = LazyOp(BinaryOps.ADD, (a,b))
-    ast = LazyOp(ReduceOps.SUM, (ast,), (2,2))
+    ast = LazyOp(ReduceOps.SUM, (ast,), (1,1))
     ast = LazyOp(BinaryOps.ADD, (ast,c))
     ret = LLVMBuffer((1,1)).exec_ast(ast)
     print(ret.toCPU())
