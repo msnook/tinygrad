@@ -131,6 +131,8 @@ jobs:
         python-version: 3.8
     - name: Install Dependencies
       run: pip install -e '.[gpu,testing]'
+    - name: Install Appsurify
+      run: pip install appsurifyci --upgrade
     - name: Run Optimizer Test
       run: OPT=2 GPU=1 python test/external_test_opt.py
     - name: Run Pytest with Appsurify
