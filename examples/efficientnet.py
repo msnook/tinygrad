@@ -1,7 +1,5 @@
 # load weights from
 # https://github.com/lukemelas/EfficientNet-PyTorch/releases/download/1.0/efficientnet-b0-355c32eb.pth
-# a rough copy of
-# https://github.com/lukemelas/EfficientNet-PyTorch/blob/master/efficientnet_pytorch/model.py
 import os
 import sys
 import io
