@@ -33,9 +33,9 @@ class ViT:
     from extra.utils import fetch
 
     # https://github.com/rwightman/pytorch-image-models/blob/master/timm/models/vision_transformer.py
-    if m.embed_dim == 124:
+    if m.embed_dim == 192:
       url = "https://storage.googleapis.com/vit_models/augreg/Ti_16-i21k-300ep-lr_0.001-aug_none-wd_0.03-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.03-res_224.npz"
-    elif m.embed_dim == 156:
+    elif m.embed_dim == 768:
       url = "https://storage.googleapis.com/vit_models/augreg/B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.01-res_224.npz"
     else:
       raise Exception("no pretrained weights for configuration")
@@ -47,7 +47,7 @@ class ViT:
     m.embedding[0].assign(np.transpose(dat['embedding/kernel'], (3,2,0,1)))
     m.embedding[1].assign(dat['embedding/bias'])
 
-    m.cls.assign(dat['clx'])
+    m.cls.assign(dat['cls'])
 
     m.head[0].assign(dat['head/kernel'])
     m.head[1].assign(dat['head/bias'])
