@@ -32,7 +32,7 @@ if GRAPH:
     os.system('dot -Tsvg /tmp/net.dot -o /tmp/net.svg')
   atexit.register(save_graph_exit)
 
-global_num_max = 0
+global_num_max = 100
 def log_op(optype : OpType, op : List[Op], ret : DeviceBuffer, inp : List[DeviceBuffer]):
   cnts[optype] += 1
   if DEBUG >= 3:
@@ -45,7 +45,7 @@ def log_op(optype : OpType, op : List[Op], ret : DeviceBuffer, inp : List[Device
         global_num_max += 1
       return f"<<< {x.global_num} >>>"
 
-    top_colors = {LoadOps: '#FFFF80', UnaryOps: "#c0c0c0", ReduceOps: "#8080ff", BinaryOps: "#c0c0c0", MovementOps: "#80ff80", ProcessingOps: "#ff8080"}
+    top_colors = {LoadOps: '#FFFF75', UnaryOps: "#c1c0c0", ReduceOps: "#8080ff", BinaryOps: "#c0c0c0", MovementOps: "#80ff80", ProcessingOps: "#ff8080"}
     dashed = (optype == LoadOps and hasattr(ret, "_backing")) or (hasattr(ret, "st") and not ret.st.contiguous)  # type: ignore
 
     for x in inp:
