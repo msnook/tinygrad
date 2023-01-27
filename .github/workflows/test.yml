@@ -5,6 +5,9 @@ on:
   pull_request:
   workflow_dispatch:
 
+env:
+  APPSURIFY_API_KEY: ${{ secrets.APPSURIFY_API_KEY }}
+
 jobs:
   # OMG THIS TEST IS DISABLED, PLZ MAKE TINYGRAD TINY AGAIN
   lines:
@@ -58,10 +61,12 @@ jobs:
         python-version: 3.8
     - name: Install Dependencies
       run: pip install -e '.[testing]'
-    - name: Run Pytest
-      run: LAZY=0 python -m pytest -s -v
-    - name: Run Pytest (lazy)
-      run: LAZY=1 python -m pytest -s -v
+    - name: Install Appsurify
+      run: pip install appsurifyci --upgrade
+    - name: Run Pytest with Appsurify
+      run: runtestswithappsurify --url "https://personal.appsurify.com/" --apikey "$APPSURIFY_API_KEY" --project "tinygrad" --testsuite "tinygrad-tests" --runtemplate "all tests" --runcommand "LAZY=0 python -m pytest -s -v" --commit "$GITHUB_SHA" --branch "$GITHUB_REF_NAME"
+    - name: Run Pytest with Appsurify (lazy)
+      run: runtestswithappsurify --url "https://personal.appsurify.com/" --apikey "$APPSURIFY_API_KEY" --project "tinygrad" --testsuite "tinygrad-tests" --runtemplate "all tests" --runcommand "LAZY=1 python -m pytest -s -v" --commit "$GITHUB_SHA" --branch "$GITHUB_REF_NAME"
 
   testllvm:
     name: LLVM Tests
