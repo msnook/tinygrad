@@ -64,9 +64,9 @@ jobs:
     - name: Install Appsurify
       run: pip install appsurifyci --upgrade
     - name: Run Pytest with Appsurify
-      run: runtestswithappsurify --url "https://personal.appsurify.com" --apikey "$APPSURIFY_API_KEY" --project "tinygrad" --testsuite "tinygrad-tests" --runtemplate "all tests" --runcommand "LAZY=0 python -m pytest -s -v --junitxml=cpu-test-results.xml" --commit "$GITHUB_SHA" --branch "$GITHUB_REF_NAME" --report "cpu-test-results.xml"
+      run: runtestswithappsurify --url "https://personal.appsurify.com" --apikey "$APPSURIFY_API_KEY" --project "tinygrad" --testsuite "tinygrad-cpu-tests" --runtemplate "all tests" --runcommand "LAZY=0 python -m pytest -s -v --junitxml=cpu-test-results.xml" --commit "$GITHUB_SHA" --branch "$GITHUB_REF_NAME" --report "cpu-test-results.xml"
     - name: Run Pytest with Appsurify (lazy)
-      run: runtestswithappsurify --url "https://personal.appsurify.com" --apikey "$APPSURIFY_API_KEY" --project "tinygrad" --testsuite "tinygrad-tests" --runtemplate "all tests" --runcommand "LAZY=1 python -m pytest -s -v --junitxml=cpu-test-results-lazy.xml" --commit "$GITHUB_SHA" --branch "$GITHUB_REF_NAME" --report "cpu-test-results-lazy.xml"
+      run: runtestswithappsurify --url "https://personal.appsurify.com" --apikey "$APPSURIFY_API_KEY" --project "tinygrad" --testsuite "tinygrad-cpu-tests-lazy" --runtemplate "all tests" --runcommand "LAZY=1 python -m pytest -s -v --junitxml=cpu-test-results-lazy.xml" --commit "$GITHUB_SHA" --branch "$GITHUB_REF_NAME" --report "cpu-test-results-lazy.xml"
 
   testllvm:
     name: LLVM Tests
@@ -83,8 +83,10 @@ jobs:
         python-version: 3.8
     - name: Install Dependencies
       run: pip install -e '.[llvm,testing]'
-    - name: Run Pytest OPT=2
-      run: OPT=2 LLVM=1 python -m pytest -s -v
+    - name: Install Appsurify
+      run: pip install appsurifyci --upgrade
+    - name: Run Pytest OPT=2 with Appsurify
+      run: runtestswithappsurify --url "https://personal.appsurify.com" --apikey "$APPSURIFY_API_KEY" --project "tinygrad" --testsuite "tinygrad-llvm-tests" --runtemplate "all tests" --runcommand "OPT=2 LLVM=1 python -m pytest -s -v --junitxml=llvm-test-results.xml" --commit "$GITHUB_SHA" --branch "$GITHUB_REF_NAME" --report "llvm-test-results.xml"
 
   testtorch:
     name: Torch Tests
@@ -101,10 +103,12 @@ jobs:
         python-version: 3.8
     - name: Install Dependencies
       run: pip install -e '.[testing]'
-    - name: Run Pytest
-      run: LAZY=0 TORCH=1 python -m pytest -s -v
-    - name: Run Pytest (lazy)
-      run: LAZY=1 TORCH=1 python -m pytest -s -v
+    - name: Install Appsurify
+      run: pip install appsurifyci --upgrade
+    - name: Run Pytest with Appsurify
+      run: runtestswithappsurify --url "https://personal.appsurify.com" --apikey "$APPSURIFY_API_KEY" --project "tinygrad" --testsuite "tinygrad-torch-tests" --runtemplate "all tests" --runcommand "LAZY=0 TORCH=1 python -m pytest -s -v --junitxml=torch-test-results.xml" --commit "$GITHUB_SHA" --branch "$GITHUB_REF_NAME" --report "torch-test-results.xml"
+    - name: Run Pytest with Appsurify (lazy)
+      run: runtestswithappsurify --url "https://personal.appsurify.com" --apikey "$APPSURIFY_API_KEY" --project "tinygrad" --testsuite "tinygrad-torch-tests-lazy" --runtemplate "all tests" --runcommand "LAZY=1 TORCH=1 python -m pytest -s -v --junitxml=torch-test-results-lazy.xml" --commit "$GITHUB_SHA" --branch "$GITHUB_REF_NAME" --report "torch-test-results-lazy.xml"
 
   testgpu:
     name: GPU Tests
@@ -129,8 +133,8 @@ jobs:
       run: pip install -e '.[gpu,testing]'
     - name: Run Optimizer Test
       run: OPT=2 GPU=1 python test/external_test_opt.py
-    - name: Run Pytest (default)
-      run: OPT=1 GPU=1 python -m pytest -s -v
+    - name: Run Pytest with Appsurify
+      run: runtestswithappsurify --url "https://personal.appsurify.com" --apikey "$APPSURIFY_API_KEY" --project "tinygrad" --testsuite "tinygrad-gpu-tests" --runtemplate "all tests" --runcommand "OPT=1 GPU=1 python -m pytest -s -v --junitxml=gpu-test-results.xml" --commit "$GITHUB_SHA" --branch "$GITHUB_REF_NAME" --report "gpu-test-results.xml"
 
   testopencl:
     name: openpilot (OpenCL) Test
