@@ -64,9 +64,9 @@ jobs:
     - name: Install Appsurify
       run: pip install appsurifyci --upgrade
     - name: Run Pytest with Appsurify
-      run: runtestswithappsurify --url "https://personal.appsurify.com" --apikey "$APPSURIFY_API_KEY" --project "tinygrad" --testsuite "tinygrad-tests" --runtemplate "all tests" --runcommand "LAZY=0 python -m pytest -s -v" --commit "$GITHUB_SHA" --branch "$GITHUB_REF_NAME" --report "report"
+      run: runtestswithappsurify --url "https://personal.appsurify.com" --apikey "$APPSURIFY_API_KEY" --project "tinygrad" --testsuite "tinygrad-tests" --runtemplate "all tests" --runcommand "LAZY=0 python -m pytest -s -v --junitxml=cpu-test-results.xml" --commit "$GITHUB_SHA" --branch "$GITHUB_REF_NAME" --report "cpu-test-results.xml"
     - name: Run Pytest with Appsurify (lazy)
-      run: runtestswithappsurify --url "https://personal.appsurify.com" --apikey "$APPSURIFY_API_KEY" --project "tinygrad" --testsuite "tinygrad-tests" --runtemplate "all tests" --runcommand "LAZY=1 python -m pytest -s -v" --commit "$GITHUB_SHA" --branch "$GITHUB_REF_NAME" --report "report"
+      run: runtestswithappsurify --url "https://personal.appsurify.com" --apikey "$APPSURIFY_API_KEY" --project "tinygrad" --testsuite "tinygrad-tests" --runtemplate "all tests" --runcommand "LAZY=1 python -m pytest -s -v --junitxml=cpu-test-results-lazy.xml" --commit "$GITHUB_SHA" --branch "$GITHUB_REF_NAME" --report "cpu-test-results-lazy.xml"
 
   testllvm:
     name: LLVM Tests
