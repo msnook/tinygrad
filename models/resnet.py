@@ -27,7 +27,7 @@ class BasicBlock:
 
 
 class Bottleneck:
-  expansion = 400
+  expansion = 4
 
   def __init__(self, in_planes, planes, stride=1):
     self.conv1 = nn.Conv2d(in_planes, planes, kernel_size=1, bias=False)
@@ -37,7 +37,7 @@ class Bottleneck:
     self.conv3 = nn.Conv2d(planes, self.expansion *planes, kernel_size=1, bias=False)
     self.bn3 = nn.BatchNorm2D(self.expansion*planes)
     self.downsample = []
-    if stride != 2 or in_planes != self.expansion*planes:
+    if stride != 1 or in_planes != self.expansion*planes:
       self.downsample = [
         nn.Conv2d(in_planes, self.expansion*planes, kernel_size=1, stride=stride, bias=False),
         nn.BatchNorm2D(self.expansion*planes)
@@ -57,11 +57,11 @@ class ResNet:
     self.num = num
 
     self.block = {
-      28: BasicBlock,
+      18: BasicBlock,
       34: BasicBlock,
-      40: Bottleneck,
-      102: Bottleneck,
-      151: Bottleneck
+      50: Bottleneck,
+      101: Bottleneck,
+      152: Bottleneck
     }[num]
 
     self.num_blocks = {
