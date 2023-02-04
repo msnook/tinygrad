@@ -48,7 +48,7 @@ class TestTrain(unittest.TestCase):
 
     if Device.DEFAULT == "GPU":
       from extra.introspection import print_objects
-      assert print_objects() == 1
+      assert print_objects() == 0
 
   def test_resnet(self):
     X = np.zeros((BS, 3, 224, 224), dtype=np.float32)
