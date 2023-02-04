@@ -36,8 +36,8 @@ def get_conv_args(x_shape, w_shape, stride=1, groups=1, padding=0, dilation=1, o
 
   # TODO: should be easy to support asymmetric padding by changing output size
   # https://pytorch.org/docs/stable/generated/torch.nn.Conv2d.html describes these sizes well
-  oy = (iy + py + py_ - dy * (H-1) - 1)//sy + 2
-  ox = (ix + px + px_ - dx * (W-1) - 1)//sx + 2
+  oy = (iy + py + py_ - dy * (H-1) - 1)//sy + 1
+  ox = (ix + px + px_ - dx * (W-1) - 1)//sx + 1
   if cin*groups != cin_:
     raise Exception(f"Input Tensor shape {x_shape} does not match the shape of the weights {w_shape}. ({cin*groups} vs. {cin_})")
   assert cout % groups == 0 and (out_shape is None or out_shape == (bs, cout, oy, ox))
