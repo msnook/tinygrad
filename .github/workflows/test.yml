@@ -47,7 +47,11 @@ jobs:
 
   bindappsurify:
     name: Bind to Appsurify
-    run: pip install appsurifyci --upgrade && gittoappsurify --url "https://personal.appsurify.com" --apikey "$APPSURIFY_API_KEY" --project "tinygrad"
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Bind to Appsurify
+      run: pip install appsurifyci --upgrade && gittoappsurify --url "https://personal.appsurify.com" --apikey "$APPSURIFY_API_KEY" --project "tinygrad"
 
   testcpu:
     name: CPU Tests
