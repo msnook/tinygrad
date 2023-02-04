@@ -17,7 +17,7 @@ IMAGE = int(os.getenv("IMAGE", "0"))
 # TODO: movement ops that only change shape are really nops. treat them as such
 REMOVE_MOVEMENT_NOPS, MERGE_UNARY_OPS, MERGE_ELEMENTWISE_INTO_REDUCE, SHUFFLE_MOVEMENT_OPS = OPT>=1, OPT>=1, OPT>=1, OPT>=1
 MERGE_ELEMENTWISE_OPS, MERGE_ONE_REDUCE_INTO_ELEMENTWISE = OPT>=2, OPT>=2
-SHUFFLE_PAD_OPS = OPT>=5  # NOTE: 0/0 is NaN if you pad, so this can change the output
+SHUFFLE_PAD_OPS = OPT>=3  # NOTE: 0/0 is NaN if you pad, so this can change the output
 
 # **** enumerate supported devices ****
 
