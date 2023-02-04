@@ -6,7 +6,7 @@ from tinygrad.helpers import prod, argfix
 from typing import List, Tuple, Callable, Optional
 from tinygrad.lazy import Device, LazyBuffer
 
-# **** start with two base classes, Tensor and Function ****
+# **** start with two base classes, Tensor and Function 3****
 
 class Tensor:
   training, no_grad = False, False
