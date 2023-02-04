@@ -51,9 +51,10 @@ jobs:
 
     steps:
     - name: Bind to Appsurify
-      run: pip install appsurifyci --upgrade && gittoappsurify --url "https://personal.appsurify.com" --apikey "$APPSURIFY_API_KEY" --project "tinygrad"
+      run: pip install appsurifyci --upgrade && gittoappsurify --url "https://personal.appsurify.com" --token "$APPSURIFY_API_KEY" --project "tinygrad"
 
   testcpu:
+    needs: bindappsurify
     name: CPU Tests
     runs-on: ubuntu-latest
 
@@ -76,6 +77,7 @@ jobs:
       run: runtestswithappsurify --url "https://personal.appsurify.com" --apikey "$APPSURIFY_API_KEY" --project "tinygrad" --testsuite "tinygrad-cpu-tests-lazy" --runtemplate "all tests" --runcommand "LAZY=1 python -m pytest -s -v --junitxml=cpu-test-results-lazy.xml" --commit "$GITHUB_SHA" --branch "$GITHUB_REF_NAME" --report "cpu-test-results-lazy.xml"
 
   testllvm:
+    needs: bindappsurify
     name: LLVM Tests
     runs-on: ubuntu-latest
 
@@ -96,6 +98,7 @@ jobs:
       run: runtestswithappsurify --url "https://personal.appsurify.com" --apikey "$APPSURIFY_API_KEY" --project "tinygrad" --testsuite "tinygrad-llvm-tests" --runtemplate "all tests" --runcommand "OPT=2 LLVM=1 python -m pytest -s -v --junitxml=llvm-test-results.xml" --commit "$GITHUB_SHA" --branch "$GITHUB_REF_NAME" --report "llvm-test-results.xml"
 
   testtorch:
+    needs: bindappsurify
     name: Torch Tests
     runs-on: ubuntu-latest
 
@@ -118,6 +121,7 @@ jobs:
       run: runtestswithappsurify --url "https://personal.appsurify.com" --apikey "$APPSURIFY_API_KEY" --project "tinygrad" --testsuite "tinygrad-torch-tests-lazy" --runtemplate "all tests" --runcommand "LAZY=1 TORCH=1 python -m pytest -s -v --junitxml=torch-test-results-lazy.xml" --commit "$GITHUB_SHA" --branch "$GITHUB_REF_NAME" --report "torch-test-results-lazy.xml"
 
   testgpu:
+    needs: bindappsurify
     name: GPU Tests
     runs-on: ubuntu-20.04
 
