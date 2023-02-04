@@ -6,8 +6,8 @@ from accel.llvm.ops_llvm import LLVMBuffer
 
 class TestLLVM(unittest.TestCase):
   def test_add(self):
-    a = LLVMBuffer.fromCPU(np.ones((2,2)))
-    b = LLVMBuffer.fromCPU(np.ones((2,2)))
+    a = LLVMBuffer.fromCPU(np.ones((4,4)))
+    b = LLVMBuffer.fromCPU(np.ones((4,4)))
     ast = LazyOp(BinaryOps.ADD, (a,b))
     ret = LLVMBuffer((4,4)).exec_ast(ast)
     print(ret.toCPU())
@@ -35,8 +35,8 @@ class TestLLVM(unittest.TestCase):
     print(ret.toCPU())
 
   def test_add_sum_add(self):
-    a = LLVMBuffer.fromCPU(np.ones((2,2)))
-    b = LLVMBuffer.fromCPU(np.ones((2,2)))
+    a = LLVMBuffer.fromCPU(np.ones((4,4)))
+    b = LLVMBuffer.fromCPU(np.ones((4,4)))
     c = LLVMBuffer.fromCPU(np.ones((1,1)))
     ast = LazyOp(BinaryOps.ADD, (a,b))
     ast = LazyOp(ReduceOps.SUM, (ast,), (1,1))
