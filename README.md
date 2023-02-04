@@ -8,7 +8,9 @@
 
 For something in between a [pytorch](https://github.com/pytorch/pytorch) and a [karpathy/micrograd](https://github.com/karpathy/micrograd)
 
-This may not be the best deep learning framework, but it is a deep learning framework. Yo!
+This may not be the best deep learning framework, but it is a deep learning framework.
+
+The sub 1000 line core of it is in `tinygrad/`
 
 Due to its extreme simplicity, it aims to be the easiest framework to add new accelerators to, with support for both inference and training. Support the simple basic ops, and you get SOTA [vision](https://arxiv.org/abs/1905.11946) `models/efficientnet.py` and [language](https://arxiv.org/abs/1706.03762) `models/transformer.py` models.
 
