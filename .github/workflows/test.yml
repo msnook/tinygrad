@@ -50,6 +50,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
     - name: Bind to Appsurify
       run: pip install appsurifyci --upgrade && gittoappsurify --start "latest" --url "https://personal.appsurify.com" --token "$APPSURIFY_API_KEY" --project "tinygrad" --branch "$GITHUB_REF_NAME"
 
